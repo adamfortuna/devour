@@ -1,0 +1,9 @@
+development: &postgres
+  adapter: postgresql
+  encoding: unicode
+  database: devour_development
+  username: adam
+  password:
+
+test:
+  <<: *postgres
