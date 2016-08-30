@@ -1,0 +1,44 @@
+!!!
+%html
+  %head
+    %title Devour
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all'
+  %body
+    %nav.navbar.navbar-fixed-top.navbar-dark.bg-primary
+      %a.navbar-brand{:href => "#"} Home
+      %ul.nav.navbar-nav
+        %li.nav-item.dropdown
+          %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"} Locations
+          .dropdown-menu
+            %a.dropdown-item{:href => "#"} Audoban Park
+            %a.dropdown-item{:href => "#"} Baldwin Park
+            %a.dropdown-item{:href => "#"} Winter Park
+            .dropdown-divider
+            %a.dropdown-item{:href => "#"} Altamonte Springs
+            .dropdown-divider
+            %a.dropdown-item{:href => "#"} All Disney
+            %a.dropdown-item{:href => "#"} Disney Resorts
+            %a.dropdown-item{:href => "#"} Disney Springs
+            %a.dropdown-item{:href => "#"} Magic Kingdom
+            %a.dropdown-item{:href => "#"} Epcot
+            %a.dropdown-item{:href => "#"} Animal Kingdom
+            .dropdown-divider
+            %a.dropdown-item{:href => "#"} All Universal
+            %a.dropdown-item{:href => "#"} Universal CityWalk
+            %a.dropdown-item{:href => "#"} Islands of Adventure
+            %a.dropdown-item{:href => "#"} Universal Studios
+            %a.dropdown-item{:href => "#"} Universal Resorts
+        %li.nav-item.dropdown
+          %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"} Cuisines
+          .dropdown-menu
+            %a.dropdown-item{:href => "#"} Sushi
+            %a.dropdown-item{:href => "#"} Fine Dining
+            %a.dropdown-item{:href => "#"} Omakase
+        %li.nav-item
+          %a.nav-link{:href => "#"}
+
+
+    = yield
+    = javascript_include_tag 'application'
+    = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAq79_0A7y4hmyMhTYlSoEINNuR_dBmPZQ&callback=initMap', async: 'async',  defer: 'defer'

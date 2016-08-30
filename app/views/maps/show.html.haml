@@ -1,0 +1,14 @@
+.cards
+  .card
+    .card-block
+      %h1.card-title= @map.title
+
+      -# %p.text-muted
+      -#   By
+      -#   %a{:href => "#"} Adam Fortuna
+      -#   Aug 24, 2016, 11:00am.
+    .card-block= @map.description
+
+  = render @map.location_maps.by_order.includes(location: :address)
+
+#map.container-fluid

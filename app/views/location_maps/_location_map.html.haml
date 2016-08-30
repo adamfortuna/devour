@@ -1,0 +1,39 @@
+- location = location_map.location
+.card
+  .card-block
+    %h2.card-title
+      - if location_map.show_order?
+        %span.text-primary= "#{location_map.order+1}."
+      = location.name
+    %span.rating.tag.tag-success.current-rating{:href => "#"}
+      = location_map.location.rating
+      %i.fa.fa-spoon{"aria-hidden" => "true"}
+
+
+    .card-text
+      = location.description
+
+  .card-block
+    .row
+      .col-xs-6
+        %b= location.name
+        = render location.address
+        %ul.list-unstyled
+          %li
+            %b> Price
+            \:
+            = "$" * location.price
+
+      .col-xs-6
+        - location.maps.each do |lm|
+          %a.tag.tag-primary{href: '#' }= lm.short_title
+
+        - location.areas.each do |a|
+          - if a.locations.count > 1
+            %a.tag.tag-info{:href => "#"}= a.name
+    %p
+      %a.btn.btn-primary{:href => "#"} Read Our Review
+      %a.btn.btn-secondary{:href => "#"} Visit Website
+      %a.btn.btn-secondary{:href => "#"}
+        %i.fa.fa-location-arrow{"aria-hidden" => "true"}
+        Directions

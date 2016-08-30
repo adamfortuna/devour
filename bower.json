@@ -1,0 +1,21 @@
+{
+  "name": "devour",
+  "homepage": "https://github.com/adamfortuna/devour",
+  "authors": [
+    "Adam Fortuna <adam@fortuna.name>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.3",
+    "font-awesome": "^4.6.3"
+  }
+}
