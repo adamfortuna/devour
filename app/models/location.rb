@@ -1,6 +1,7 @@
 class Location < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
+  mount_uploader :photo, PhotoUploader
 
   belongs_to :address
   has_many :area_locations, inverse_of: :location

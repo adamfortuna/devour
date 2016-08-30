@@ -1,10 +1,10 @@
 ActiveAdmin.register Location do
-  permit_params :name, :price, :description, :rating, :website, :review_url,
+  permit_params :name, :price, :description, :rating, :website, :review_url, :photo, :photo_src, :photo_src_url,
                 address_attributes: [ :id, :street, :city, :region, :postal_code, :country, :lat, :lng, :_destroy ],
                 area_ids: []
 
 
-  form do |f|
+  form(html: { multipart: true }) do |f|
     f.inputs 'Location' do
       f.input :name
       f.input :price
@@ -12,6 +12,10 @@ ActiveAdmin.register Location do
       f.input :rating
       f.input :website
       f.input :review_url
+
+      f.input :photo, :as => :file
+      f.input :photo_src
+      f.input :photo_src_url
     end
 
     f.inputs 'Areas' do
@@ -40,6 +44,11 @@ ActiveAdmin.register Location do
         row :rating
         row :website
         row :review_url
+        row :photo do
+          image_tag(location.photo.url(:thumb))
+        end
+        row :photo_src
+        row :photo_src_url
       end
     end
 

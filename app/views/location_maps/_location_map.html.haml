@@ -13,6 +13,9 @@
     .card-text
       = location.description
 
+  - if location.photo
+    = render partial: 'photos/photo', object: location
+
   .card-block
     .row
       .col-xs-6
