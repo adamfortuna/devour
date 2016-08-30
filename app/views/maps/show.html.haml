@@ -7,6 +7,9 @@
       -#   By
       -#   %a{:href => "#"} Adam Fortuna
       -#   Aug 24, 2016, 11:00am.
+
+    = render partial: 'photos/photo', object: @map
+
     .card-block= @map.description
 
   = render @map.location_maps.by_order.includes(location: :address)

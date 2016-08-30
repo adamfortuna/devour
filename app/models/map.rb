@@ -2,6 +2,8 @@ class Map < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  mount_uploader :photo, PhotoUploader
+
   belongs_to :admin_user, foreign_key: :user_id
 
   has_many :location_maps, inverse_of: :map
