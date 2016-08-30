@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20160828191757) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.string   "name",                      null: false
-    t.boolean  "public",     default: true, null: false
+    t.boolean  "is_public",  default: true, null: false
     t.string   "slug",                      null: false
     t.index ["slug"], name: "index_areas_on_slug", using: :btree
   end
@@ -85,9 +85,7 @@ ActiveRecord::Schema.define(version: 20160828191757) do
   create_table "location_maps", force: :cascade do |t|
     t.integer "map_id",                     null: false
     t.integer "location_id",                null: false
-    t.float   "rating"
     t.integer "order"
-    t.text    "description"
     t.boolean "show_order",  default: true, null: false
   end
 

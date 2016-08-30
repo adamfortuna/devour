@@ -25,8 +25,6 @@ ActiveAdmin.register Location do
         a.input :region
         a.input :postal_code
         a.input :country
-        a.input :lat
-        a.input :lng
       end
     end
 

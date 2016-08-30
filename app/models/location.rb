@@ -9,7 +9,6 @@ class Location < ApplicationRecord
   has_many :location_maps, inverse_of: :location
   has_many :maps, through: :location_maps
 
-
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :areas
   accepts_nested_attributes_for :area_locations

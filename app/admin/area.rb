@@ -4,7 +4,7 @@ ActiveAdmin.register Area do
   form do |f|
     f.inputs 'Area' do
       f.input :name
-      f.input :public
+      f.input :is_public
     end
     f.actions
   end
