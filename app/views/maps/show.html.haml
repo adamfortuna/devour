@@ -15,3 +15,8 @@
   = render @map.location_maps.by_order.includes(location: :address)
 
 #map.container-fluid
+
+:javascript
+  var maps = #{@map.to_json(include: { location_maps: 'location'})};
+
+= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAq79_0A7y4hmyMhTYlSoEINNuR_dBmPZQ&callback=initMap', async: 'async',  defer: 'defer'

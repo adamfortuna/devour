@@ -15,4 +15,18 @@ class Map < ApplicationRecord
   def should_generate_new_friendly_id?
     title_changed?
   end
+
+
+  def as_json(options={})
+    {
+      title: title,
+      short_title: short_title,
+      slug: slug,
+      description: description,
+      photo: photo.url(:thumb),
+      photo_src: photo_src,
+      photo_src_url: photo_src_url,
+      locations: location_maps
+    }
+  end
 end
