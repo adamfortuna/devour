@@ -24,10 +24,17 @@ window.initMap = function initMap() {
       lng: location.address.lng
     });
     bounds.extend(point);
+
+    if(location.show_order) {
+      var label = (location.order + 1).toString();
+    } else {
+      var label = null;
+    }
+
     var marker = new google.maps.Marker({
       map: map,
       position: point,
-      label: (index+1).toString()
+      label: label
     });
 
     marker.addListener('click', function() {
