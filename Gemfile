@@ -44,7 +44,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'country_select'
 
 # Maps
-gem 'geocoder'
+gem 'geokit-rails'
 
 # Image processing
 gem 'carrierwave'

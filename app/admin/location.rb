@@ -45,7 +45,9 @@ ActiveAdmin.register Location do
         row :website
         row :review_url
         row :photo do
-          image_tag(location.photo.url(:thumb))
+          if !location.photo.blank?
+            image_tag(location.photo.url(:thumb))
+          end
         end
         row :photo_src
         row :photo_src_url
