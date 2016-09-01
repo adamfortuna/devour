@@ -4,6 +4,7 @@
     %title CocktailFly
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
   %body
     %nav.navbar.navbar-fixed-top.navbar-dark.bg-primary
       %a.navbar-brand{:href => "#"} Home
@@ -19,4 +20,3 @@
           %a.nav-link{ href: '/contact' } Contact
 
     = yield
-    = javascript_include_tag 'application'
