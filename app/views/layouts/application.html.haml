@@ -11,19 +11,12 @@
         %li.nav-item.dropdown
           %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"} Cities
           .dropdown-menu
-            %strong Testing
-            %ul
-              %li testing
-            %strong Testing
-            %ul
-              %li testing
+            - Map.order(:title).all.each do |map|
+              = link_to map.title, map, class: 'dropdown-item'
 
       %ul.nav.navbar-nav.pull-right
         %li.nav-item
           %a.nav-link{ href: '/contact' } Contact
-
-
-
 
     = yield
     = javascript_include_tag 'application'
