@@ -1,4 +1,5 @@
 //= require jquery
+//= require tether/dist/js/tether.min
 //= require bootstrap/dist/js/bootstrap.min
 //= require lodash/dist/lodash.core
 //= require jquery.scrollTo/jquery.scrollTo
