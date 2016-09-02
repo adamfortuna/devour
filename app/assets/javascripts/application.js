@@ -12,6 +12,19 @@ function scrollToLocation(slug) {
   });
 }
 
+var myWindow, markers = {};
+
+function isScrolledIntoView(elem)
+{
+  var docViewTop = myWindow.scrollTop();
+  var docViewBottom = docViewTop + myWindow.height();
+
+  var elemTop = elem.offset().top;
+  var elemBottom = elemTop + elem.height();
+
+  return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
+
 window.initMap = function initMap() {
   var bounds = new google.maps.LatLngBounds();
 
@@ -33,13 +46,13 @@ window.initMap = function initMap() {
       var label = null;
     }
 
-    var marker = new google.maps.Marker({
+    markers[location.slug] = new google.maps.Marker({
       map: map,
       position: point,
       label: label
     });
 
-    marker.addListener('click', function() {
+    markers[location.slug].addListener('click', function() {
       scrollToLocation(location.slug);
 
       if (info) {
@@ -52,7 +65,7 @@ window.initMap = function initMap() {
         content: "<h3>"+location.name+"</h3>"
       });
 
-      info.open(map, marker);
+      info.open(map, markers[location.slug]);
     });
 
     return location.address.lng;
@@ -70,3 +83,37 @@ window.initMap = function initMap() {
 
   map.fitBounds(bounds);
 }
+
+
+$(function() {
+  myWindow = $(window);
+  var maps = $('.location-map h2');
+  var lastMap;
+
+  $('.cards').on('scroll', function() {
+    var currentMapH2 = _.find(maps, function(map) {
+      return isScrolledIntoView($(map));
+    });
+
+    if(currentMapH2) {
+      var currentMap = $(currentMapH2).closest('.location-map').attr('data-id');
+    }
+
+    if(currentMap) {
+      if(lastMap && lastMap != currentMap) {
+        new google.maps.event.trigger(markers[lastMap], 'click');
+      }
+      if(currentMap && lastMap != currentMap) {
+        lastMap = currentMap;
+        new google.maps.event.trigger(markers[currentMap], 'click');
+        markers[currentMap].setAnimation(google.maps.Animation.BOUNCE);
+
+        setTimeout(function() {
+          markers[lastMap].setAnimation(null);
+        }, 600);
+      }
+    }
+  });
+
+
+});

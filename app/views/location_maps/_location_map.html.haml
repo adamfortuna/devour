@@ -1,5 +1,5 @@
 - location = location_map.location
-.card{ 'data-id': "location-map-#{location.slug}" }
+.card.location-map{ 'data-id': location.slug }
   .card-block
     %h2.card-title
       - if location_map.show_order?
@@ -23,11 +23,13 @@
       .col-xs-6
         %b= location.name
         = render location.address
-        %ul.list-unstyled
-          %li
-            %b> Price
-            \:
-            = "$" * location.price
+
+        - if location.price > 0
+          %ul.list-unstyled
+            %li
+              %b> Price
+              \:
+              = "$" * location.price
 
       .col-xs-6
         - location.maps.each do |lm|
