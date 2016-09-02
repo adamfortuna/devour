@@ -24,7 +24,7 @@
         %b= location.name
         = render location.address
 
-        - if location.price > 0
+        - if location.price && location.price > 0
           %ul.list-unstyled
             %li
               %b> Price
