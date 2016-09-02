@@ -1,3 +1,5 @@
+require 'kramdown'
+
 module ApplicationHelper
   def address_for address
     a = []
@@ -5,5 +7,9 @@ module ApplicationHelper
     a << [address.city, address.region, address.postal_code].compact.join(', ')
     a << address.country
     a.compact.join('<br/>')
+  end
+
+  def markdown text
+    Kramdown::Document.new(text).to_html
   end
 end

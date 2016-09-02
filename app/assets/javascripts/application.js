@@ -8,7 +8,7 @@ function scrollToLocation(slug) {
   var id = 'location-map-' + slug,
       el = $('[data-id='+id+']')
   $('.cards').scrollTo(el, 800, {
-    over: { top: -0.01}
+    over: { top: -0.01 }
   });
 }
 

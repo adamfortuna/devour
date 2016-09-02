@@ -17,4 +17,8 @@ class Location < ApplicationRecord
   def should_generate_new_friendly_id?
     name_changed?
   end
+
+  def directions_url
+    "https://www.google.com/maps/place/#{address.address}"
+  end
 end

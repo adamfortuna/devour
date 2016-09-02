@@ -10,11 +10,13 @@
       %i.fa.fa-spoon{"aria-hidden" => "true"}
 
 
-    .card-text
-      = location.description
-
   - if location.photo
     = render partial: 'photos/photo', object: location
+
+  .card-block
+    .card-text
+      = raw markdown location.description
+
 
   .card-block
     .row
@@ -29,14 +31,16 @@
 
       .col-xs-6
         - location.maps.each do |lm|
-          %a.tag.tag-primary{href: '#' }= lm.short_title
+          %span.tag.tag-primary= lm.short_title
 
         - location.areas.each do |a|
           - if a.locations.count > 1
-            %a.tag.tag-info{:href => "#"}= a.name
+            %span.tag.tag-info= a.name
     %p
-      %a.btn.btn-primary{:href => "#"} Read Our Review
-      %a.btn.btn-secondary{:href => "#"} Visit Website
-      %a.btn.btn-secondary{:href => "#"}
+      - if !location.review_url.blank?
+        %a.btn.btn-primary{:href => location.review_url, target: '_blank' } Read Our Review
+      - if !location.website.blank?
+        %a.btn.btn-secondary{:href => location.website, target: '_blank' } Visit Website
+      %a.btn.btn-secondary{:href => location.directions_url, target: '_blank' }
         %i.fa.fa-location-arrow{"aria-hidden" => "true"}
         Directions
