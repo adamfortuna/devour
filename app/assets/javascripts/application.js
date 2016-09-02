@@ -4,15 +4,22 @@
 //= require lodash/dist/lodash.core
 //= require jquery.scrollTo/jquery.scrollTo
 
+var myWindow, markers = {}, disableSync = false;
+
 function scrollToLocation(slug) {
-  var id = 'location-map-' + slug,
+  var id = slug,
       el = $('[data-id='+id+']')
-  $('.cards').scrollTo(el, 800, {
-    over: { top: -0.01 }
+
+  disableSync = true;
+  $('.cards').scrollTo(el, 400, {
+    over: { top: -0.01 },
+    onAfter: function() {
+      disableSync = false;
+    }
   });
+
 }
 
-var myWindow, markers = {};
 
 function isScrolledIntoView(elem)
 {
@@ -48,12 +55,15 @@ window.initMap = function initMap() {
 
     markers[location.slug] = new google.maps.Marker({
       map: map,
-      position: point,
-      label: label
+      position: point
     });
 
-    markers[location.slug].addListener('click', function() {
-      scrollToLocation(location.slug);
+    markers[location.slug].addListener('click', function(open) {
+      if(open == 'closing') { return; }
+
+      if(!disableSync && open != 'opening') {
+        scrollToLocation(location.slug);
+      }
 
       if (info) {
         info.close();
@@ -91,6 +101,8 @@ $(function() {
   var lastMap;
 
   $('.cards').on('scroll', function() {
+    if(disableSync) { return true; }
+
     var currentMapH2 = _.find(maps, function(map) {
       return isScrolledIntoView($(map));
     });
@@ -101,12 +113,15 @@ $(function() {
 
     if(currentMap) {
       if(lastMap && lastMap != currentMap) {
-        new google.maps.event.trigger(markers[lastMap], 'click');
+        new google.maps.event.trigger(markers[lastMap], 'click', 'closing');
+
+        // markers[lastMap].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
       }
       if(currentMap && lastMap != currentMap) {
         lastMap = currentMap;
-        new google.maps.event.trigger(markers[currentMap], 'click');
+        new google.maps.event.trigger(markers[currentMap], 'click', 'opening');
         markers[currentMap].setAnimation(google.maps.Animation.BOUNCE);
+        // markers[currentMap].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
 
         setTimeout(function(map) {
           markers[map].setAnimation(null);
