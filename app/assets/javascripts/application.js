@@ -108,9 +108,9 @@ $(function() {
         new google.maps.event.trigger(markers[currentMap], 'click');
         markers[currentMap].setAnimation(google.maps.Animation.BOUNCE);
 
-        setTimeout(function() {
-          markers[lastMap].setAnimation(null);
-        }, 600);
+        setTimeout(function(map) {
+          markers[map].setAnimation(null);
+        }.bind(this, lastMap), 600);
       }
     }
   });
