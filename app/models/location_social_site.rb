@@ -5,5 +5,7 @@ class LocationSocialSite < ApplicationRecord
   validates :location, presence: true
   validates :social_site, presence: true
 
+  scope :by_name, -> { includes(:social_site).order('social_sites.name') }
+
   accepts_nested_attributes_for :social_site, :reject_if => :all_blank
 end

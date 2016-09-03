@@ -4,7 +4,7 @@ module ApplicationHelper
   def address_for address
     a = []
     a << address.street
-    a << [address.city, address.region, address.postal_code, address.country].compact.join(', ')
+    a << [address.city, address.region, address.postal_code].compact.join(', ')
     a.compact.join('<br/>')
   end
 
