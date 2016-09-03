@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903160936) do
+ActiveRecord::Schema.define(version: 20160903175249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,12 @@ ActiveRecord::Schema.define(version: 20160903160936) do
     t.boolean "show_order",  default: true, null: false
   end
 
+  create_table "location_social_sites", force: :cascade do |t|
+    t.integer "location_id"
+    t.integer "social_site_id"
+    t.string  "url"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -119,6 +125,11 @@ ActiveRecord::Schema.define(version: 20160903160936) do
     t.string   "photo_src"
     t.string   "photo_src_url"
     t.text     "short_description"
+  end
+
+  create_table "social_sites", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
   end
 
 end
