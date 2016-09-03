@@ -1,7 +1,9 @@
 !!!
 %html
   %head
-    %title Cocktail Fly
+    %title= yield(:title) || "Cocktail Fly"
+    - if description = yield(:description)
+      %meta{name: "description", content: description }
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'

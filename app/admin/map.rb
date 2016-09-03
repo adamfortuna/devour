@@ -1,9 +1,19 @@
   ActiveAdmin.register Map do
-  permit_params :title, :short_title, :description, :photo, :photo_src, :photo_src_url,
+  permit_params :title, :short_title, :description, :short_description, :photo, :photo_src, :photo_src_url,
                 location_maps_attributes: [:id, :location_id, :rating, :description, :order, :show_order, :_destroy]
 
   before_filter :only => [:show, :edit, :update, :destroy] do
     @map = Map.friendly.find(params[:id])
+  end
+
+  index do
+    selectable_column
+    column :title
+    column :short_description
+    column :locations do |map|
+      map.locations.count
+    end
+    actions
   end
 
   show do
@@ -16,6 +26,7 @@
       row :short_title
       row :slug
       row :description
+      row :short_description
 
       row :photo do
         image_tag(@map.photo.url(:thumb))
@@ -46,6 +57,7 @@
       f.input :title
       f.input :short_title
       f.input :description
+      f.input :short_description
 
       f.input :photo, :as => :file
       f.input :photo_src
