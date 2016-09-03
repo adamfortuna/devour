@@ -5,10 +5,10 @@
       - if location_map.show_order?
         %span.text-primary= "#{location_map.order+1}."
       = location.name
-    %span.rating.tag.tag-success.current-rating{:href => "#"}
-      = location_map.location.rating
-      %i.fa.fa-spoon{"aria-hidden" => "true"}
-
+    - if location_map.location.rating && location_map.location.rating > 0
+      %span.rating.tag.tag-success.current-rating{:href => "#"}
+        = location_map.location.rating.to_i
+        %i.fa.fa-spoon{"aria-hidden" => "true"}
 
   - if location.photo
     = render partial: 'photos/photo', object: location
@@ -17,19 +17,11 @@
     .card-text
       = raw markdown location.description
 
-
   .card-block
     .row
       .col-xs-6
         %b= location.name
         = render location.address
-
-        - if location.price && location.price > 0
-          %ul.list-unstyled
-            %li
-              %b> Price
-              \:
-              = "$" * location.price
 
       .col-xs-6
         - location.maps.each do |lm|

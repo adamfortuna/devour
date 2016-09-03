@@ -1,13 +1,23 @@
 ActiveAdmin.register Location do
-  permit_params :name, :price, :description, :rating, :website, :review_url, :photo, :photo_src, :photo_src_url,
+  permit_params :name, :description, :short_description, :rating, :website, :review_url, :photo, :photo_src, :photo_src_url,
                 address_attributes: [ :id, :street, :city, :region, :postal_code, :country, :lat, :lng, :_destroy ],
                 area_ids: []
 
+  index do
+    selectable_column
+    column :name
+    column :short_description
+    column :rating
+    column :maps do |location|
+      location.maps.count
+    end
+    actions
+  end
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Location' do
       f.input :name
-      f.input :price
+      f.input :short_description
       f.input :description
       f.input :rating
       f.input :website
@@ -39,7 +49,7 @@ ActiveAdmin.register Location do
     panel "Location" do
       attributes_table_for location do
         row :name
-        row :price
+        row :short_description
         row :description
         row :rating
         row :website

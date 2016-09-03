@@ -55,11 +55,24 @@ window.initMap = function initMap() {
 
     markers[location.slug] = new google.maps.Marker({
       map: map,
-      position: point
+      position: point,
+      icon: 'http://maps.google.com/mapfiles/ms/micons/red.png'
     });
 
     markers[location.slug].addListener('click', function(open) {
-      if(open == 'closing') { return; }
+
+      // Reset all markers to red
+      _.each(markers, function(marker) {
+        if(marker.getIcon() != 'http://maps.google.com/mapfiles/ms/micons/red.png') {
+          marker.setIcon('http://maps.google.com/mapfiles/ms/micons/red.png');
+        }
+      });
+
+      if(open == 'closing') {
+        return;
+      }
+
+      markers[location.slug].setIcon('http://maps.google.com/mapfiles/ms/micons/blue.png');
 
       if(!disableSync && open != 'opening') {
         scrollToLocation(location.slug);
@@ -69,10 +82,15 @@ window.initMap = function initMap() {
         info.close();
       }
 
+      var content = "<h3>"+location.name+"</h3>";
+      if(location.short_description) {
+        content = content + "<span>"+location.short_description+"</span>";
+      }
+
       info = new google.maps.InfoWindow({
         position: point,
-        maxWidth: 200,
-        content: "<h3>"+location.name+"</h3>"
+        maxWidth: 300,
+        content: content
       });
 
       info.open(map, markers[location.slug]);
@@ -114,18 +132,15 @@ $(function() {
     if(currentMap) {
       if(lastMap && lastMap != currentMap) {
         new google.maps.event.trigger(markers[lastMap], 'click', 'closing');
-
-        // markers[lastMap].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
       }
       if(currentMap && lastMap != currentMap) {
         lastMap = currentMap;
-        new google.maps.event.trigger(markers[currentMap], 'click', 'opening');
         markers[currentMap].setAnimation(google.maps.Animation.BOUNCE);
-        // markers[currentMap].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
-
+        new google.maps.event.trigger(markers[currentMap], 'click', 'opening');
         setTimeout(function(map) {
           markers[map].setAnimation(null);
         }.bind(this, lastMap), 600);
+
       }
     }
   });

@@ -16,6 +16,7 @@ class LocationMap < ApplicationRecord
       show_order: show_order,
       name: location.name,
       slug: location.slug,
+      short_description: location.short_description,
       description: location.description,
       rating: location.rating,
       website: location.website,
