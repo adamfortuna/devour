@@ -13,7 +13,8 @@
 
     = render partial: 'photos/photo', object: @map
 
-    .card-block= @map.description
+    .card-block= raw markdown @map.description
+
   = render @map.location_maps.by_order.includes(location: :address)
 
 #map.container-fluid
