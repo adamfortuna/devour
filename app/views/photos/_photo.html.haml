@@ -4,4 +4,4 @@
     - if photo.photo_src && photo.photo_src_url
       %figcaption.figure-caption{ class: 'text-sm-right' }
         Source:
-        = link_to photo.photo_src, photo.photo_src_url
+        = link_to photo.photo_src, photo.photo_src_url, target: '_blank'
