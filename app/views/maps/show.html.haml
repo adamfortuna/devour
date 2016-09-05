@@ -5,7 +5,6 @@
   .card
     .card-block
       %h1.card-title= @map.title
-
       -# %p.text-muted
       -#   By
       -#   %a{:href => "#"} Adam Fortuna
@@ -15,11 +14,11 @@
 
     .card-block= raw markdown @map.description
 
-  = render @map.location_maps.by_order.includes(location: :address)
+  = render @map.location_maps
 
 #map.container-fluid
 
 :javascript
-  var maps = #{@map.to_json(include: { location_maps: 'location'})};
+  var maps = #{@map.to_json};
 
 = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAq79_0A7y4hmyMhTYlSoEINNuR_dBmPZQ&callback=initMap', async: 'async',  defer: 'defer'

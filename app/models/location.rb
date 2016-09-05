@@ -5,7 +5,7 @@ class Location < ApplicationRecord
 
   belongs_to :address
   has_many :area_locations, inverse_of: :location
-  has_many :areas, through: :area_locations
+  has_many :areas, through: :area_locations, inverse_of: :locations
 
   has_many :location_social_sites, inverse_of: :location
   has_many :social_sites, through: :location_social_sites

@@ -6,7 +6,7 @@ class LocationMap < ApplicationRecord
   validates :location, presence: true
   validates :map, presence: true
 
-  scope :by_order, -> { order(:order) }
+  default_scope -> { order('location_maps.order') }
 
   accepts_nested_attributes_for :location, :reject_if => :all_blank
 

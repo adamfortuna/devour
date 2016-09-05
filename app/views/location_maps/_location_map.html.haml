@@ -25,15 +25,15 @@
 
       .col-xs-6
         %p
-          - location.maps.each do |lm|
-            %span.tag.tag-primary= lm.short_title
+          - location.maps.each do |map|
+            %span.tag.tag-primary= map.short_title
 
           - location.areas.each do |a|
-            - if a.locations.count > 1
+            - if a.locations_count > 1
               %span.tag.tag-info= a.name
 
         %p
-          - location.location_social_sites.by_name.each do |lss|
+          - location.location_social_sites.each do |lss|
             %a.btn.btn-outline-primary.btn-sm{ href: lss.url, target: '_blank' }
               %i.fa{ class: "fa-#{lss.social_site.slug}" }
     %p
