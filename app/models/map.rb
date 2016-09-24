@@ -14,8 +14,10 @@ class Map < ApplicationRecord
 
   def self.closest(session_location)
     begin
-      if session_location.is_a? Geokit::LatLng
-        location = session_location
+      return Map.first unless session_location
+
+      if session_location.is_a? Geokit::GeoLoc
+        location = Geokit::LatLng.new(session_location.lat, session_location.lng)
       elsif session_location.is_a? Hash
         location = Geokit::LatLng.new(session_location['lat'], session_location['lng'])
       else
