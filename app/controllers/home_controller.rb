@@ -10,17 +10,6 @@ class HomeController < ApplicationController
   private
 
   def closest_map
-    if session[:geo_location].is_a? Hash
-      lat_Lng = Geokit::LatLng.new(session[:geo_location]['lat'], session[:geo_location]['lng'])
-      if address = Address.within(250, origin: lat_Lng).first
-        map = address.location.maps.first
-      end
-    else
-      if address = Address.within(250, origin: session[:geo_location]).first
-        map = address.location.maps.first
-      end
-    end
-
-    map || Map.first
+    Map.closest(session[:geo_location])
   end
 end

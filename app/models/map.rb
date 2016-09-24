@@ -12,6 +12,26 @@ class Map < ApplicationRecord
   accepts_nested_attributes_for :location_maps, allow_destroy: true
   accepts_nested_attributes_for :locations
 
+  def self.closest(session_location)
+    begin
+      if session_location.is_a? Geokit::LatLng
+        location = session_location
+      elsif session_location.is_a? Hash
+        location = Geokit::LatLng.new(session_location['lat'], session_location['lng'])
+      else
+        raise Exception.new('Looks like the session came back with an unexpected result')
+      end
+
+      if address = Address.within(250, origin: location).first
+        map = address.location.maps.first
+      end
+
+      map || Map.first
+    rescue Exception => e
+      return Map.first
+    end
+  end
+
   def should_generate_new_friendly_id?
     title_changed?
   end
